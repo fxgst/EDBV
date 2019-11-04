@@ -4,10 +4,11 @@ classdef LoadImage
     end
     
     methods(Static)
-        function image = loadImage()
+        
+        function image = Load()
             image = imread('pout.tif');
         end
+        
     end
-    
 end
 

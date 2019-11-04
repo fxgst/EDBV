@@ -1,13 +1,14 @@
-import LoadImage
-
+addpath('Filter');
 mainFunc();
 
 function mainFunc()
     % load initial Image
-    Image = LoadImage.loadImage();
+    Image = LoadImage.Load();
     
+    % apply filters
+    Image = BinaryImage.Binary(Image);
     
-    % Show image
+    % display image
     imshow(Image);
 end
 

@@ -1,23 +1,14 @@
 classdef BinaryImage
-    %BINARYIMAGE Summary of this class goes here
-    %   Detailed explanation goes here
-    
     properties
-        Property1
+        Property1 % not used
     end
     
-    methods
-        function obj = BinaryImage(inputArg1,inputArg2)
-            %BINARYIMAGE Construct an instance of this class
-            %   Detailed explanation goes here
-            obj.Property1 = inputArg1 + inputArg2;
+    methods(Static)
+        
+        function outputImage = Binary(image)
+            outputImage = imbinarize(image,0.5);
         end
         
-        function outputArg = method1(obj,inputArg)
-            %METHOD1 Summary of this method goes here
-            %   Detailed explanation goes here
-            outputArg = obj.Property1 + inputArg;
-        end
     end
 end
 
