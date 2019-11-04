@@ -1,5 +1,5 @@
-classdef GUI
-    %GUI Summary of this class goes here
+classdef Pyramids
+    %PYRAMIDS Summary of this class goes here
     %   Detailed explanation goes here
     
     properties
@@ -7,8 +7,8 @@ classdef GUI
     end
     
     methods
-        function obj = GUI(inputArg1,inputArg2)
-            %GUI Construct an instance of this class
+        function obj = Pyramids(inputArg1,inputArg2)
+            %PYRAMIDS Construct an instance of this class
             %   Detailed explanation goes here
             obj.Property1 = inputArg1 + inputArg2;
         end
