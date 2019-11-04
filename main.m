@@ -10,6 +10,9 @@ function mainFunc()
     % apply filters
     Image = BinaryImage.Binary(Image);
     
+    % initialize GUI
+    GUI.init();
+    
     % display image
     imshow(Image);
 end

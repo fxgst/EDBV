@@ -1,0 +1,16 @@
+classdef GUI
+    %GUI Summary of this class goes here
+    %   Detailed explanation goes here
+    
+    methods(Static)
+        function init 
+            f = figure();
+            layout = uix.HBox('fundament',f);
+            layout.Widths = [100 -1]
+            
+            uicontrol( 'String', 'Button 1', 'buttonBox', layout );
+            uicontrol( 'String', 'Button 2', 'buttonBox', layout );
+        end
+    end
+end
+

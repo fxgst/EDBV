@@ -2,21 +2,14 @@ classdef GUI
     %GUI Summary of this class goes here
     %   Detailed explanation goes here
     
-    properties
-        Property1
-    end
-    
-    methods
-        function obj = GUI(inputArg1,inputArg2)
-            %GUI Construct an instance of this class
-            %   Detailed explanation goes here
-            obj.Property1 = inputArg1 + inputArg2;
-        end
-        
-        function outputArg = method1(obj,inputArg)
-            %METHOD1 Summary of this method goes here
-            %   Detailed explanation goes here
-            outputArg = obj.Property1 + inputArg;
+    methods(Static)
+        function init 
+            f = figure();
+            layout = uix.HBox('parent',f);
+            %set(layout,'Widths', [100], 'Spacing', 5);
+            buttonBox = uix.VBox('parent', layout);
+            uicontrol( 'String', 'Button 1', 'parent', buttonBox );
+            uicontrol( 'String', 'Button 2', 'parent', buttonBox );
         end
     end
 end
