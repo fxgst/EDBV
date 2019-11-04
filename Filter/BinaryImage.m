@@ -6,7 +6,8 @@ classdef BinaryImage
     methods(Static)
         
         function outputImage = Binary(image)
-            outputImage = imbinarize(image,0.5);
+            gray = rgb2gray(image);
+            outputImage = imbinarize(gray);
         end
         
     end
