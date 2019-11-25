@@ -7,7 +7,7 @@ classdef BinaryImage
         
         function outputImage = Binary(image)
             gray = rgb2gray(image);
-            outputImage = imbinarize(gray);
+            outputImage = imbinarize(gray, 'adaptive');
         end
         
     end
