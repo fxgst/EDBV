@@ -11,7 +11,7 @@ function mainFunc()
     Image = BinaryImage.Binary(Image);
     
     % initialize GUI
-    GUI.init();
+    % GUI.init();
     
     % display image
     imshow(Image);
