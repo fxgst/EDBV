@@ -15,13 +15,14 @@ function mainFunc()
     usbTemplate = BinaryImage.Binary(usbTemplate);
 
     % emphasize matches in original image
-    original = TemplateMatching.Match(original, image, usbTemplate);
+    result = original;
+    result = TemplateMatching.Match(result, image, usbTemplate);
 
     % initialize GUI
     % GUI.init();
     
     % display image
-    imshow(original);
+    imshow(result);
     disp('Done');
 end
 
