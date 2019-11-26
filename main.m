@@ -5,15 +5,22 @@ mainFunc();
 
 function mainFunc()
     % load initial Image
-    Image = LoadImage.Load('Images/example.jpeg');
+    original = LoadImage.Load('Images/image_14.jpg');
     
-    % apply filters
-    Image = BinaryImage.Binary(Image);
+    % apply filters to original for processing
+    image = BinaryImage.Binary(original);
     
+    % apply filters to template for processing
+    usbTemplate = LoadImage.Load('Images/usb_template_1.jpg');
+    usbTemplate = BinaryImage.Binary(usbTemplate);
+
+    % emphasize matches in original image
+    original = TemplateMatching.Match(original, image, usbTemplate);
+
     % initialize GUI
     % GUI.init();
     
     % display image
-    imshow(Image);
+    imshow(original);
 end
 
