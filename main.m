@@ -5,7 +5,7 @@ mainFunc();
 
 function mainFunc()
     % load initial Image
-    original = LoadImage.Load('Images/image_13.jpg');
+    original = LoadImage.Load('Images/image_14.jpg');
     
     % apply filters to original for processing
     image = BinaryImage.Binary(original);
@@ -22,5 +22,6 @@ function mainFunc()
     
     % display image
     imshow(original);
+    disp('Done');
 end
 
