@@ -4,18 +4,29 @@ classdef TemplateMatching
     
     properties(Constant)
         % parameters
-        match_spacing = 150;
-        consider_top_matches = 50;
+		
+		% TODO: calculate values based on image size
+        match_spacing = 30;
+        consider_top_matches = 10;
+		min_score = 0.38;
+		
         usb_highlight_color = 'red';
+		line_width = 3;
 
     end
     
     methods(Static)
-
+        
+        function scales = getScaleFactors(image, template)
+			% TODO: calculate scales for template based on size
+			scales = flip(linspace(0.4,1,7)); % 1, 0.9, ..., 0.4
+			%scales = linspace(1,1,1); % 1
+        end
+      
+        
         function outputImage = Match(original, image, template)
-            
-            scales = linspace(0.4,1,7); % 0.4, 0.5, ..., 1
-            Matches = [];
+            scales = TemplateMatching.getScaleFactors(image, template);
+            Matches = []; % Y; X; width; height; score
             
             for s = 1:size(scales, 2)
                 
@@ -27,21 +38,29 @@ classdef TemplateMatching
                 bestMatches = maxk(c(:), TemplateMatching.consider_top_matches);
                
                 for i = 1:size(bestMatches)
-                    [cur_ypeak, cur_xpeak] = find(c==bestMatches(i));
-                    p1 = [cur_ypeak; cur_xpeak; width; height]; % current match point
-                    shouldAdd = true;
+					shouldAdd = true;
+
+					score = bestMatches(i);
+
+					if score < TemplateMatching.min_score
+						shouldAdd = false;
+						continue;
+					end
+                    [cur_ypeak, cur_xpeak] = find(c==score);
+                   
+                    p1 = [cur_ypeak(1); cur_xpeak(1); width; height; score]; % current match point
                     
-                    %fprintf('%f, %d, %d\n', bestMatches(i), cur_ypeak, cur_xpeak);
+                    %fprintf('%f, %d, %d\n', score, cur_ypeak, cur_xpeak);
 
                     % check distance to other matches                 
                     for j = 1:size(Matches, 2)
                         p2 = Matches(:, j);
-                        % FIXME: p2 sometimes not matches p1 dimensions (e.g. for small template)
-                        
+                                                
                         % detect duplicate matches 
                         % TODO: a gscheide heuristik die duplikate erkennt
-                        if norm(p1-p2) < TemplateMatching.match_spacing % if distance to any other match smaller than n, don't add
+                        if norm(p1(1:2)-p2(1:2)) < TemplateMatching.match_spacing % if distance to any other match smaller than n, don't add
                             shouldAdd = false;
+							break;
                         end
                     end
 
@@ -51,11 +70,11 @@ classdef TemplateMatching
                     end
 
                 end
-                Matches
-            end
+			end
             
-
-            % highlight matches in original image
+			Matches
+			
+            % draw rectangles
             for i = 1:size(Matches, 2)
                 Coords = (Matches(1:2, i))';
                 Dimension = (Matches(3:4, i))';
@@ -65,7 +84,7 @@ classdef TemplateMatching
                 yoffset = Coords(1)-width;
                 xoffset = Coords(2)-height;
 
-                original = insertShape(original, 'rectangle', [xoffset, yoffset, height, width], 'LineWidth', 10, 'Color',TemplateMatching.usb_highlight_color);
+                original = insertShape(original, 'rectangle', [xoffset, yoffset, height, width], 'LineWidth', TemplateMatching.line_width, 'Color', TemplateMatching.usb_highlight_color);
             end
 
             % return image
