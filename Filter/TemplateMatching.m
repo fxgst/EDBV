@@ -3,6 +3,7 @@ classdef TemplateMatching
     %   Detailed explanation goes here
     
     properties(Constant)
+        % parameters
         match_spacing = 150;
         consider_top_matches = 50;
         usb_highlight_color = 'red';
@@ -21,13 +22,16 @@ classdef TemplateMatching
                 rTemplate = imresize(template, scales(s));
                 [width, height] = size(rTemplate);
 
-                c = normxcorr2(rTemplate, image);
+                c = normxcorr2(rTemplate, image); % VERY slow
+
                 bestMatches = maxk(c(:), TemplateMatching.consider_top_matches);
                
                 for i = 1:size(bestMatches)
                     [cur_ypeak, cur_xpeak] = find(c==bestMatches(i));
                     p1 = [cur_ypeak; cur_xpeak; width; height]; % current match point
                     shouldAdd = true;
+                    
+                    %fprintf('%f, %d, %d\n', bestMatches(i), cur_ypeak, cur_xpeak);
 
                     % check distance to other matches                 
                     for j = 1:size(Matches, 2)
