@@ -7,7 +7,7 @@ classdef TemplateMatching
 		
 		% TODO: calculate values based on image size
         consider_top_matches = 70;
-		min_score = 0.2;
+		min_score = 0.35;
 		
         usb_highlight_color = 'red';
 		line_width = 3;
@@ -18,7 +18,7 @@ classdef TemplateMatching
         
         function scales = getScaleFactors(image, template)
 			% TODO: calculate scales for template based on size
-			scales = flip(linspace(0.6,2,5)); % 1, 0.9, ..., 0.6
+			scales = flip(linspace(0.6,1,5)); % 1, 0.9, ..., 0.6
 			%scales = linspace(1,1,1); % 1
         end
       

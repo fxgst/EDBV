@@ -5,13 +5,13 @@ mainFunc();
 
 function mainFunc()
     % load initial Image
-    original = LoadImage.Load('Images/image_14.jpg');
+    original = LoadImage.Load('Images/image_0.jpg');
     
     % apply filters to original for processing
     image = BinaryImage.Binary(original);
     
     % apply filters to template for processing
-    usbTemplate = LoadImage.Load('Images/usb_template_1.jpg');
+    usbTemplate = LoadImage.Load('Images/usb_template_5.jpg');
     usbTemplate = BinaryImage.Binary(usbTemplate);
 
     % emphasize matches in original image
