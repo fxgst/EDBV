@@ -1,21 +1,20 @@
 addpath('Filter');
 addpath('Images');
 
-mainFunc();
+mainFunc(imread('Images/image_0.jpg'));
 
-function mainFunc()
-    % load initial Image
-    original = LoadImage.Load('Images/image_6.jpg');
+function mainFunc(original)
+	disp('START');
     
     % apply filters to original for processing
     image = BinaryImage.Binary(original);
     
-    % apply filters to template for processing
-    hdmiTemplate = LoadImage.Load('Images/hdmi_template_1.jpg');
-	usbTemplate = LoadImage.Load('Images/usb_template_5.jpg');
-	auxTemplate = LoadImage.Load('Images/aux_template_1.jpg');
+	% load templates
+    hdmiTemplate = imread('Images/hdmi_template_1.jpg');
+	usbTemplate = imread('Images/usb_template_5.jpg');
+	auxTemplate = imread('Images/aux_template_1.jpg');
 
-
+    % apply filters to templates for processing
 	auxTemplate = BinaryImage.Binary(auxTemplate);
 	usbTemplate = BinaryImage.Binary(usbTemplate);
 	hdmiTemplate = BinaryImage.Binary(hdmiTemplate);
@@ -28,7 +27,6 @@ function mainFunc()
 	result = TemplateMatching.Match(result, image, usbTemplate, 'usb', 0.39, 70);
 	disp('aux');
 	result = TemplateMatching.Match(result, image, auxTemplate, 'aux', 0.38, 70);
-
     
     % initialize GUI
     % GUI.init();

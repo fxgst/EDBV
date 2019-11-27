@@ -10,14 +10,13 @@ classdef TemplateMatching
         
         function scales = getScaleFactors(image, template)
 			% TODO: calculate scales for template based on size
-			scales = flip(linspace(0.4,1,7)); % 1, 0.9, ..., 0.6
-			%scales = linspace(1,1,1); % 1
+			scales = flip(linspace(0.4,1,7)); % 1, 0.9, ..., 0.4
 		end
         
 		
         function outputImage = Match(original, image, template, type, minScore, considerTopMatches)
             scales = TemplateMatching.getScaleFactors(image, template);
-            Matches = []; % Y; X; height; width; score
+            Matches = []; % x; y; height; width; score
             
 			for s = 1:size(scales, 2)
                 
@@ -94,4 +93,3 @@ classdef TemplateMatching
 	end
 	
 end
-
