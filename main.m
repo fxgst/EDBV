@@ -5,7 +5,7 @@ mainFunc();
 
 function mainFunc()
     % load initial Image
-    original = LoadImage.Load('Images/image_0.jpg');
+    original = LoadImage.Load('Images/image_6.jpg');
     
     % apply filters to original for processing
     image = BinaryImage.Binary(original);
@@ -23,9 +23,9 @@ function mainFunc()
     % emphasize matches in original image
     result = original;
 	disp('hdmi');
-    result = TemplateMatching.Match(result, image, hdmiTemplate, 'hdmi', 0.4, 70);
+    result = TemplateMatching.Match(result, image, hdmiTemplate, 'hdmi', 0.5, 70);
 	disp('usb');
-	result = TemplateMatching.Match(result, image, usbTemplate, 'usb', 0.35, 70);
+	result = TemplateMatching.Match(result, image, usbTemplate, 'usb', 0.39, 70);
 	disp('aux');
 	result = TemplateMatching.Match(result, image, auxTemplate, 'aux', 0.38, 70);
 

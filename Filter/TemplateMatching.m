@@ -19,7 +19,7 @@ classdef TemplateMatching
             scales = TemplateMatching.getScaleFactors(image, template);
             Matches = []; % Y; X; height; width; score
             
-            for s = 1:size(scales, 2)
+			for s = 1:size(scales, 2)
                 
                 rTemplate = imresize(template, scales(s));
                 [width, height] = size(rTemplate);
@@ -28,12 +28,11 @@ classdef TemplateMatching
 
                 bestMatches = maxk(c(:), considerTopMatches);
                
-                for i = 1:size(bestMatches)
+				for i = 1:size(bestMatches)
 					shouldAdd = true;
 					score = bestMatches(i);
 
 					if score < minScore
-						shouldAdd = false;
 						continue;
 					end
 					
@@ -42,10 +41,14 @@ classdef TemplateMatching
 					xoffset = cur_xpeak(1)-width;
 					yoffset = cur_ypeak(1)-height;
 					
+					if (yoffset < 0) || (xoffset < 0)
+						continue;
+					end
+					
                     p1 = [yoffset; xoffset; height; width; score]; % current match point
 
                     % check whether matches overlap               
-                    for j = 1:size(Matches, 2)
+					for j = 1:size(Matches, 2)
                         p2 = Matches(1:4, j);
 					
 						overlapArea = rectint(p1(1:4)', p2');
@@ -55,14 +58,14 @@ classdef TemplateMatching
 							break;
 						end
                                                 
-                    end
+					end
 
-                    if shouldAdd
+					if shouldAdd
                         % append new match
                         Matches = [Matches p1];
-                    end
+					end
 
-                end
+				end
 			end
             
 			format shortg
@@ -83,7 +86,7 @@ classdef TemplateMatching
 			end
 			
 			result = original;
-            for i = 1:size(Matches, 2)
+			for i = 1:size(Matches, 2)
                 result = insertShape(result, 'rectangle', Matches(1:4, i)', 'LineWidth', 3, 'Color', color);
 			end
 		end
