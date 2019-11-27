@@ -3,27 +3,19 @@ classdef TemplateMatching
     %   Detailed explanation goes here
     
     properties(Constant)
-        % parameters
 		
-		% TODO: calculate values based on image size
-        consider_top_matches = 70;
-		min_score = 0.35;
-		
-        usb_highlight_color = 'red';
-		line_width = 3;
-
     end
     
     methods(Static)
         
         function scales = getScaleFactors(image, template)
 			% TODO: calculate scales for template based on size
-			scales = flip(linspace(0.6,1,5)); % 1, 0.9, ..., 0.6
+			scales = flip(linspace(0.4,1,7)); % 1, 0.9, ..., 0.6
 			%scales = linspace(1,1,1); % 1
-        end
-      
+		end
         
-        function outputImage = Match(original, image, template)
+		
+        function outputImage = Match(original, image, template, type, minScore, considerTopMatches)
             scales = TemplateMatching.getScaleFactors(image, template);
             Matches = []; % Y; X; height; width; score
             
@@ -34,13 +26,13 @@ classdef TemplateMatching
 
                 c = normxcorr2(rTemplate, image); % VERY slow
 
-                bestMatches = maxk(c(:), TemplateMatching.consider_top_matches);
+                bestMatches = maxk(c(:), considerTopMatches);
                
                 for i = 1:size(bestMatches)
 					shouldAdd = true;
 					score = bestMatches(i);
 
-					if score < TemplateMatching.min_score
+					if score < minScore
 						shouldAdd = false;
 						continue;
 					end
@@ -76,14 +68,23 @@ classdef TemplateMatching
 			format shortg
 			disp(Matches);
 			
-            outputImage = TemplateMatching.drawRectangles(original, Matches);
+            outputImage = TemplateMatching.drawRectangles(original, Matches, type);
 		end
 		
 		
-		function result = drawRectangles(original, Matches)
+		function result = drawRectangles(original, Matches, type)
+			switch type
+				case 'usb'
+					color = 'red';
+				case 'hdmi'
+					color = 'yellow';
+				case 'aux'
+					color = 'green';
+			end
+			
 			result = original;
             for i = 1:size(Matches, 2)
-                result = insertShape(result, 'rectangle', Matches(1:4, i)', 'LineWidth', TemplateMatching.line_width, 'Color', TemplateMatching.usb_highlight_color);
+                result = insertShape(result, 'rectangle', Matches(1:4, i)', 'LineWidth', 3, 'Color', color);
 			end
 		end
         

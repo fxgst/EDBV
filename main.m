@@ -11,17 +11,29 @@ function mainFunc()
     image = BinaryImage.Binary(original);
     
     % apply filters to template for processing
-    usbTemplate = LoadImage.Load('Images/usb_template_5.jpg');
-    usbTemplate = BinaryImage.Binary(usbTemplate);
+    hdmiTemplate = LoadImage.Load('Images/hdmi_template_1.jpg');
+	usbTemplate = LoadImage.Load('Images/usb_template_5.jpg');
+	auxTemplate = LoadImage.Load('Images/aux_template_1.jpg');
+
+
+	auxTemplate = BinaryImage.Binary(auxTemplate);
+	usbTemplate = BinaryImage.Binary(usbTemplate);
+	hdmiTemplate = BinaryImage.Binary(hdmiTemplate);
 
     % emphasize matches in original image
     result = original;
-    result = TemplateMatching.Match(result, image, usbTemplate);
+	disp('hdmi');
+    result = TemplateMatching.Match(result, image, hdmiTemplate, 'hdmi', 0.4, 70);
+	disp('usb');
+	result = TemplateMatching.Match(result, image, usbTemplate, 'usb', 0.35, 70);
+	disp('aux');
+	result = TemplateMatching.Match(result, image, auxTemplate, 'aux', 0.38, 70);
+
     
     % initialize GUI
     % GUI.init();
 	
     % display image
     imshow(result);
-    disp('Done');
+    disp('DONE');
 end
