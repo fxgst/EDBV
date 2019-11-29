@@ -11,11 +11,10 @@ function mainFunc(original)
 	aux = 3;
     
     % apply filters to original for processing
-    image = original;
+    original = GeoTransformation.justClipp(original);
     %image = GaussFilter.Filter(image);
-    image = EdgeDetection.Filter(image, 'sobel');
+    image = EdgeDetection.Filter(original, 'sobel');
     %image = BinaryImage.Binary(image);
-
     
 	% load templates
     hdmiTemplate = imread('Images/hdmi_template_1.jpg');
