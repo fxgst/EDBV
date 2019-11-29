@@ -1,15 +1,15 @@
 addpath('Filter');
 addpath('Images');
 
-mainFunc(imread('Images/image_0.jpg'), 'sobel');
+mainFunc(imread('Images/image_14.jpg'));
 
-function mainFunc(original, edgeDetection)
+function mainFunc(original)
 	disp('START');
     
     % apply filters to original for processing
     image = original;
     %image = GaussFilter.Filter(image);
-    image = EdgeDetection.Filter(image,edgeDetection);
+    image = EdgeDetection.Filter(image, 'sobel');
     %image = BinaryImage.Binary(image);
 
     
@@ -24,9 +24,9 @@ function mainFunc(original, edgeDetection)
     %usbTemplate = GaussFilter.Filter(usbTemplate,0);
     %auxTemplate = GaussFilter.Filter(auxTemplate,0);
     %Edge Detection
-    hdmiTemplate = EdgeDetection.Filter(hdmiTemplate,edgeDetection);
-    usbTemplate = EdgeDetection.Filter(usbTemplate,edgeDetection);
-    auxTemplate = EdgeDetection.Filter(auxTemplate,edgeDetection);
+    hdmiTemplate = EdgeDetection.Filter(hdmiTemplate, 'sobel');
+    usbTemplate = EdgeDetection.Filter(usbTemplate, 'sobel');
+    auxTemplate = EdgeDetection.Filter(auxTemplate, 'sobel');
     %Binary
 	%hdmiTemplate = BinaryImage.Binary(hdmiTemplate);
 	%usbTemplate = BinaryImage.Binary(usbTemplate);
@@ -35,17 +35,17 @@ function mainFunc(original, edgeDetection)
     % emphasize matches in original image
     result = original;
 	disp('hdmi');
-    result = TemplateMatching.Match(result, image, hdmiTemplate, 'hdmi', 0.5, 70);
+    %result = TemplateMatching.Match(result, image, hdmiTemplate, 'hdmi', 0.5, 70);
 	disp('usb');
-	result = TemplateMatching.Match(result, image, usbTemplate, 'usb', 0.46, 70);
+	result = TemplateMatching.Match(result, image, usbTemplate, 'usb', 0.25, 70);
 	disp('aux');
-	result = TemplateMatching.Match(result, image, auxTemplate, 'aux', 0.5, 70);
+	%result = TemplateMatching.Match(result, image, auxTemplate, 'aux', 0.5, 70);
     
     % initialize GUI
     % GUI.init();
 	
     % display image
-    imshowpair(result,image,'montage');
+    imshowpair(result, image, 'montage');
 
     disp('DONE');
 end

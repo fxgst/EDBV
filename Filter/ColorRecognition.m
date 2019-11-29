@@ -1,23 +1,49 @@
 classdef ColorRecognition
-    %COLORRECOGNITION Summary of this class goes here
-    %   Detailed explanation goes here
-    
-    properties
-        Property1
-    end
-    
-    methods
-        function obj = ColorRecognition(inputArg1,inputArg2)
-            %COLORRECOGNITION Construct an instance of this class
-            %   Detailed explanation goes here
-            obj.Property1 = inputArg1 + inputArg2;
-        end
-        
-        function outputArg = method1(obj,inputArg)
-            %METHOD1 Summary of this method goes here
-            %   Detailed explanation goes here
-            outputArg = obj.Property1 + inputArg;
-        end
-    end
-end
+	%COLORRECOGNITION Summary of this class goes here
+	%   Detailed explanation goes here
+	
+	properties
+	end
+	
+	methods
+		function result = colors(obj, original)
+			lab_he = rgb2lab(original);
+			ab = lab_he(:,:,2:3);
+			ab = im2single(ab);
+			
+			nColors = 3;
+			
+			% repeat the clustering 3 times to avoid local minima
+			pixel_labels = imsegkmeans(ab, nColors, 'NumAttempts', 3);
+			
+			mask1 = pixel_labels==3;
+			cluster1 = original .* uint8(mask1);
+			
+			L = lab_he(:,:,1);
+			L_blue = L .* double(mask1);
+			L_blue = rescale(L_blue);
+			idx_light_blue = imbinarize(nonzeros(L_blue));
+			
+			blue_idx = find(mask1);
+			mask2 = mask1;
+			mask2(blue_idx(idx_light_blue)) = 0;
 
+			cluster1 = original .* uint8(mask2);
+			
+			for x = 1:size(cluster1, 1)
+				for y = 1:size(cluster1, 2)
+					color = squeeze(cluster1(x,y,:));
+					if cluster1(x,y, :) > 240
+						cluster1(x,y,:) = 0;
+					end
+					if (color ~= 0)
+						%fprintf('r%f g%f b%f \n', color(1), color(2), color(3));
+					end
+
+				end
+			end
+			
+			result = cluster1;
+		end
+	end
+end
