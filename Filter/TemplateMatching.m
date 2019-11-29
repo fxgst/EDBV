@@ -16,6 +16,7 @@ classdef TemplateMatching
 		
 		function [Matches] = Match(Matches, image, template, type, minScore, considerTopMatches)
 			scales = TemplateMatching.getScaleFactors(image, template);
+			[imageWidth, imageHeight] = size(image);
 			
 			for s = 1:size(scales, 2)
 				
@@ -39,7 +40,8 @@ classdef TemplateMatching
 					xoffset = cur_xpeak(1)-width;
 					yoffset = cur_ypeak(1)-height;
 					
-					if (yoffset < 0) || (xoffset < 0) % TODO: check if outside of image
+					% check if match partially outside of image
+					if (yoffset < 0) || (xoffset < 0) || ((yoffset+height) > imageHeight) || ((xoffset+width) > imageWidth)
 						continue;
 					end
 					
