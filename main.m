@@ -5,6 +5,10 @@ mainFunc(imread('Images/image_0.jpg'));
 
 function mainFunc(original)
 	disp('START');
+	
+	usb = 1;
+	hdmi = 2;
+	aux = 3;
     
     % apply filters to original for processing
     image = original;
@@ -15,7 +19,7 @@ function mainFunc(original)
     
 	% load templates
     hdmiTemplate = imread('Images/hdmi_template_1.jpg');
-	usbTemplate = imread('Images/usb_template_5.jpg');
+	usbTemplate = imread('Images/usb_template_1.jpg');
 	auxTemplate = imread('Images/aux_template_1.jpg');
     
     % apply filters to templates for processing
@@ -32,15 +36,20 @@ function mainFunc(original)
 	%usbTemplate = BinaryImage.Binary(usbTemplate);
 	%auxTemplate = BinaryImage.Binary(auxTemplate);
     
-    % emphasize matches in original image
-    result = original;
+	
+	Matches = []; % x; y; height; width; score
+
+	% find matches
 	disp('hdmi');
-    result = TemplateMatching.Match(result, image, hdmiTemplate, 'hdmi', 0.5, 70);
+    Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.5, 70);
 	disp('usb');
-	result = TemplateMatching.Match(result, image, usbTemplate, 'usb', 0.25, 70);
+	Matches = TemplateMatching.Match(Matches, image, usbTemplate, usb, 0.1, 70);
 	disp('aux');
-	result = TemplateMatching.Match(result, image, auxTemplate, 'aux', 0.5, 70);
+	Matches = TemplateMatching.Match(Matches, image, auxTemplate, aux, 0.3, 70);
     
+	% highlight matches in original
+	result = TemplateMatching.DrawRectangles(original, Matches);
+	
 	% color recognition
 	%color = ColorRecognition;
 	%i = colors(color, original, 'blue');

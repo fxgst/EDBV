@@ -14,9 +14,8 @@ classdef TemplateMatching
 		end
 		
 		
-		function outputImage = Match(original, image, template, type, minScore, considerTopMatches)
+		function [Matches] = Match(Matches, image, template, type, minScore, considerTopMatches)
 			scales = TemplateMatching.getScaleFactors(image, template);
-			Matches = []; % x; y; height; width; score
 			
 			for s = 1:size(scales, 2)
 				
@@ -40,11 +39,11 @@ classdef TemplateMatching
 					xoffset = cur_xpeak(1)-width;
 					yoffset = cur_ypeak(1)-height;
 					
-					if (yoffset < 0) || (xoffset < 0)
+					if (yoffset < 0) || (xoffset < 0) % TODO: check if outside of image
 						continue;
 					end
 					
-					p1 = [yoffset; xoffset; height; width; score]; % current match point
+					p1 = [yoffset; xoffset; height; width; score; type]; % current match point
 					
 					% check whether matches overlap
 					for j = 1:size(Matches, 2)
@@ -70,22 +69,20 @@ classdef TemplateMatching
 			format shortg
 			disp(Matches);
 			
-			outputImage = TemplateMatching.drawRectangles(original, Matches, type);
 		end
 		
 		
-		function result = drawRectangles(original, Matches, type)
-			switch type
-				case 'usb'
-					color = 'red';
-				case 'hdmi'
-					color = 'yellow';
-				case 'aux'
-					color = 'green';
-			end
-			
+		function result = DrawRectangles(original, Matches)
 			result = original;
 			for i = 1:size(Matches, 2)
+				switch Matches(6, i)
+				case 1 % usb
+					color = 'red';
+				case 2 % hdmi
+					color = 'yellow';
+				case 3 % aux
+					color = 'green';
+			end
 				result = insertShape(result, 'rectangle', Matches(1:4, i)', 'LineWidth', 3, 'Color', color);
 			end
 		end
