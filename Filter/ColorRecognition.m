@@ -6,7 +6,11 @@ classdef ColorRecognition
 	end
 	
 	methods
-		function result = colors(obj, original)
+		function result = colors(obj, original, color)
+			switch color
+				case 'blue'
+					mode = 1;
+			end
 			lab_he = rgb2lab(original);
 			ab = lab_he(:,:,2:3);
 			ab = im2single(ab);
@@ -16,7 +20,7 @@ classdef ColorRecognition
 			% repeat the clustering 3 times to avoid local minima
 			pixel_labels = imsegkmeans(ab, nColors, 'NumAttempts', 3);
 			
-			mask1 = pixel_labels==3;
+			mask1 = pixel_labels==mode;
 			cluster1 = original .* uint8(mask1);
 			
 			L = lab_he(:,:,1);
