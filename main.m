@@ -37,7 +37,7 @@ function mainFunc(original)
 	%auxTemplate = BinaryImage.Binary(auxTemplate);
     
 	
-	Matches = []; % x; y; height; width; score
+	Matches = []; % x; y; height; width; score; type
 
 	% find matches
 	disp('hdmi');
@@ -47,13 +47,15 @@ function mainFunc(original)
 	disp('aux');
 	Matches = TemplateMatching.Match(Matches, image, auxTemplate, aux, 0.3, 70);
     
+	format shortg
+	disp(Matches);
+	
 	% highlight matches in original
 	result = TemplateMatching.DrawRectangles(original, Matches);
 	
 	% color recognition
-	%color = ColorRecognition;
-	%i = colors(color, original, 'blue');
-	%imshow(i);
+% 	i = ColorRecognition.colors(original, 'blue');
+% 	imshow(i);
 	
 
     % initialize GUI

@@ -68,9 +68,6 @@ classdef TemplateMatching
 				end
 			end
 			
-			format shortg
-			disp(Matches);
-			
 		end
 		
 		

@@ -5,8 +5,8 @@ classdef ColorRecognition
 	properties
 	end
 	
-	methods
-		function result = colors(obj, original, color)
+	methods(Static)
+		function result = colors(original, color)
 			switch color
 				case 'blue'
 					mode = 1;
