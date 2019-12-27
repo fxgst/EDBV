@@ -20,10 +20,10 @@ classdef GeoTransformation
 
             close('InputImage');
 
-            minX = recPosition(1);
-            maxX = minX + recPosition(3);
-            minY = recPosition(2);
-            maxY = minY + recPosition(4);
+            minX = round(recPosition(1));
+            maxX = round(minX + recPosition(3));
+            minY = round(recPosition(2));
+            maxY = round(minY + recPosition(4));
 
             R = input(:,:,1);
             G = input(:,:,2);
