@@ -11,9 +11,11 @@ function mainFunc(original)
 	aux = 3;
     
     % apply filters to original for processing
-    original = GeoTransformation.justClipp(original);
+    cutResult = GeoTransformation.justClipp(original);
+    imageCut = cutResult.image;
+    rectPos = cutResult.recPos;
     %image = GaussFilter.Filter(image);
-    image = EdgeDetection.Filter(original, 'sobel');
+    image = EdgeDetection.Filter(imageCut, 'sobel');
     %image = BinaryImage.Binary(image);
     
 	% load templates
@@ -50,7 +52,7 @@ function mainFunc(original)
 	disp(Matches);
 	
 	% highlight matches in original
-	result = TemplateMatching.DrawRectangles(original, Matches);
+	result = TemplateMatching.DrawRectangles(imageCut, Matches);
 	
 	% color recognition
 % 	i = ColorRecognition.colors(original, 'blue');
