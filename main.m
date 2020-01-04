@@ -1,7 +1,9 @@
 addpath('Filter');
 addpath('Images');
 
-mainFunc(imread('Images/image_0.jpg'));
+mainFunc(imread('Images/image_3.jpg'));
+
+
 
 function mainFunc(original)
 	disp('START');
@@ -9,7 +11,8 @@ function mainFunc(original)
 	usb = 1;
 	hdmi = 2;
 	aux = 3;
-	
+	mouse = 4;
+
 	% cropping
 	cutResult = GeoTransformation.justClipp(original);
     imageCut = cutResult.image;
@@ -29,6 +32,8 @@ function mainFunc(original)
     hdmiTemplate = imread('Images/hdmi_template_1.jpg');
 	usbTemplate = imread('Images/usb_template_2.jpg');
 	auxTemplate = imread('Images/aux_template_2.jpg');
+	mouseTemplate = imread('Images/mouse_template_1.jpg');
+
     
     % apply filters to templates for processing
 	
@@ -41,6 +46,8 @@ function mainFunc(original)
     %hdmiTemplate = EdgeDetection.Filter(hdmiTemplate, 'sobel');
     usbTemplate = imresize(EdgeDetection.Filter(usbTemplate, 'sobel'), [80,40]);
     auxTemplate = imresize(EdgeDetection.Filter(auxTemplate, 'sobel'), [50,50]);
+	mouseTemplate = imresize(EdgeDetection.Filter(mouseTemplate, 'sobel'), [60,60]);
+
 	
     %Binary
 	%hdmiTemplate = BinaryImage.Binary(hdmiTemplate);
@@ -57,6 +64,8 @@ function mainFunc(original)
 	Matches = TemplateMatching.Match(Matches, image, usbTemplate, usb, 0.1, 70);
 	disp('aux');
 	Matches = TemplateMatching.Match(Matches, image, auxTemplate, aux, 0.28, 70);
+    disp('mouse');
+	Matches = TemplateMatching.Match(Matches, image, mouseTemplate, mouse, 0.28, 70);
     
 	format shortg
 	disp(Matches);

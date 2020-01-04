@@ -81,6 +81,8 @@ classdef TemplateMatching
 						color = 'yellow';
 					case 3 % aux
 						color = 'red';
+					case 4 % mouse
+						color = 'blue';
 				end
 				result = insertShape(result, 'rectangle', Matches(1:4, i)', 'LineWidth', 3, 'Color', color);
 			end
