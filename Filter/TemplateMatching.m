@@ -10,7 +10,7 @@ classdef TemplateMatching
 		
 		function scales = getScaleFactors(image, template)
 			% TODO: calculate scales for template based on size
-			scales = flip(linspace(0.4,2,7)); % 1, 0.9, ..., 0.4
+			scales = [0.7, 0.8];%flip(linspace(0.4,1,7)); % 1, 0.9, ..., 0.4
 		end
 		
 		
@@ -75,13 +75,13 @@ classdef TemplateMatching
 			result = original;
 			for i = 1:size(Matches, 2)
 				switch Matches(6, i)
-				case 1 % usb
-					color = 'red';
-				case 2 % hdmi
-					color = 'yellow';
-				case 3 % aux
-					color = 'green';
-			end
+					case 1 % usb
+						color = 'green';
+					case 2 % hdmi
+						color = 'yellow';
+					case 3 % aux
+						color = 'red';
+				end
 				result = insertShape(result, 'rectangle', Matches(1:4, i)', 'LineWidth', 3, 'Color', color);
 			end
 		end

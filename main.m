@@ -9,29 +9,39 @@ function mainFunc(original)
 	usb = 1;
 	hdmi = 2;
 	aux = 3;
+	
+	% cropping
+	cutResult = GeoTransformation.justClipp(original);
+    imageCut = cutResult.image;
+    %rectPos = cutResult.recPos;
+	
+	% resize
+	imageCut = imresize(imageCut, [600,164]);
+	
     
     % apply filters to original for processing
-    cutResult = GeoTransformation.justClipp(original);
-    imageCut = cutResult.image;
-    rectPos = cutResult.recPos;
+    
     %image = GaussFilter.Filter(image);
     image = EdgeDetection.Filter(imageCut, 'sobel');
     %image = BinaryImage.Binary(image);
     
 	% load templates
     hdmiTemplate = imread('Images/hdmi_template_1.jpg');
-	usbTemplate = imread('Images/usb_template_1.jpg');
-	auxTemplate = imread('Images/aux_template_1.jpg');
+	usbTemplate = imread('Images/usb_template_2.jpg');
+	auxTemplate = imread('Images/aux_template_2.jpg');
     
     % apply filters to templates for processing
+	
     %Gauss
     %hdmiTemplate = GaussFilter.Filter(hdmiTemplate, 0);
     %usbTemplate = GaussFilter.Filter(usbTemplate, 0);
     %auxTemplate = GaussFilter.Filter(auxTemplate, 0);
+	
     %Edge Detection
-    hdmiTemplate = EdgeDetection.Filter(hdmiTemplate, 'sobel');
-    usbTemplate = EdgeDetection.Filter(usbTemplate, 'sobel');
-    auxTemplate = EdgeDetection.Filter(auxTemplate, 'sobel');
+    %hdmiTemplate = EdgeDetection.Filter(hdmiTemplate, 'sobel');
+    usbTemplate = imresize(EdgeDetection.Filter(usbTemplate, 'sobel'), [80,40]);
+    auxTemplate = imresize(EdgeDetection.Filter(auxTemplate, 'sobel'), [50,50]);
+	
     %Binary
 	%hdmiTemplate = BinaryImage.Binary(hdmiTemplate);
 	%usbTemplate = BinaryImage.Binary(usbTemplate);
@@ -41,12 +51,12 @@ function mainFunc(original)
 	Matches = []; % x; y; height; width; score; type
 
 	% find matches
-	disp('hdmi');
-    Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.5, 70);
+	%disp('hdmi');
+    %Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.5, 70);
 	disp('usb');
 	Matches = TemplateMatching.Match(Matches, image, usbTemplate, usb, 0.1, 70);
 	disp('aux');
-	Matches = TemplateMatching.Match(Matches, image, auxTemplate, aux, 0.3, 70);
+	Matches = TemplateMatching.Match(Matches, image, auxTemplate, aux, 0.28, 70);
     
 	format shortg
 	disp(Matches);
