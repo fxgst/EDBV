@@ -8,14 +8,8 @@ classdef TemplateMatching
 	
 	methods(Static)
 		
-		function scales = getScaleFactors(image, template)
-			% TODO: calculate scales for template based on size
-			scales = [0.7, 0.8];%flip(linspace(0.4,1,7)); % 1, 0.9, ..., 0.4
-		end
 		
-		
-		function [Matches] = Match(Matches, image, template, type, minScore, considerTopMatches)
-			scales = TemplateMatching.getScaleFactors(image, template);
+		function [Matches] = Match(Matches, image, template, type, minScore, considerTopMatches, scales)
 			[imageWidth, imageHeight] = size(image);
 			
 			for s = 1:size(scales, 2)
@@ -83,6 +77,8 @@ classdef TemplateMatching
 						color = 'red';
 					case 4 % mouse
 						color = 'blue';
+					case 5 % vga
+						color = 'magenta';
 				end
 				result = insertShape(result, 'rectangle', Matches(1:4, i)', 'LineWidth', 3, 'Color', color);
 			end
