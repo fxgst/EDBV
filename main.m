@@ -4,8 +4,8 @@ addpath('Images');
 female = 1;
 male = 2;
 
-%mainFunc(imread('Images/image_3.jpg'), female);
-mainFunc(imread('Images/port_1.jpg'), male);
+mainFunc(imread('Images/image_6.jpg'), female);
+%mainFunc(imread('Images/port_2.jpg'), male);
 
 
 
@@ -36,7 +36,7 @@ function mainFunc(original, mode)
 		%image = BinaryImage.Binary(image);
 
 		% load templates
-		hdmiTemplate = imread('Images/hdmi_template_1.jpg');
+		hdmiTemplate = imread('Images/hdmi_template_3.jpg');
 		vgaTemplate = imread('Images/vga_template_1.jpg');
 		usbTemplate = imread('Images/usb_template_2.jpg');
 		auxTemplate = imread('Images/aux_template_2.jpg');
@@ -66,16 +66,18 @@ function mainFunc(original, mode)
 		Matches = []; % x; y; height; width; score; type
 		scales = [0.7, 0.8];
 		% find matches
-		%disp('hdmi');
-		%Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.0, 70, scales);
-		disp('vga');
-		Matches = TemplateMatching.Match(Matches, image, vgaTemplate, vga, 0.25, 70, scales);
+		disp('hdmi');
+		Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.30, 70, scales);
+		
 		disp('mouse');
 		Matches = TemplateMatching.Match(Matches, image, mouseTemplate, mouse, 0.25, 70, scales);
+		disp('vga');
+		Matches = TemplateMatching.Match(Matches, image, vgaTemplate, vga, 0.25, 70, scales);
 		disp('usb');
-		Matches = TemplateMatching.Match(Matches, image, usbTemplate, usb, 0.1, 70, scales);
+		Matches = TemplateMatching.Match(Matches, image, usbTemplate, usb, 0.35, 70, scales);
 		disp('aux');
 		Matches = TemplateMatching.Match(Matches, image, auxTemplate, aux, 0.28, 70, scales);
+		
 
 
 		format shortg
@@ -125,7 +127,7 @@ function mainFunc(original, mode)
 		Matches = [];
 		
 		%scales = flip(linspace(0.4, max((maxx/x),(maxy/y)),7)); % 7 sizes up to the size of scaled image 
-		scales = flip(linspace(0.4, 2, 18)); % 7 sizes up to the size of scaled image 
+		scales = flip(linspace(0.2, 2, 20)); % 7 sizes up to the size of scaled image 
 
 		disp('hdmi');
 		Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.3, 200, scales);
