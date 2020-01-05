@@ -1,5 +1,7 @@
 % Author: Elias Datler 11775795
 classdef BinaryImage
+	%BINARYIMAGE Returns black white image based on threshhold
+
     methods(Static)
         
 		% matlab implementation
