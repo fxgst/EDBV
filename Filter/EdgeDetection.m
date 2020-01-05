@@ -5,7 +5,7 @@ classdef EdgeDetection
     
     methods(Static)
         
-         function outputImage = Filter(image,sigma)
+         function outputImage = Filter(image,sigma,T_Low,T_High)
 
             matrixX = [-1 0 1;
                        -2 0 2;
@@ -37,7 +37,7 @@ classdef EdgeDetection
             theta = atan2(imageY, imageX);
             theta = theta*180/pi;
             
-            inputSize = size(theta); 
+            inputSize = size(theta);
             xLength = inputSize(1);
             yLength = inputSize(2);
                       
@@ -90,9 +90,7 @@ classdef EdgeDetection
 
             
             %Schwellenwertbildung step 6
-            %Value for Thresholding
-            T_Low = 0.075;
-            T_High = 0.175;
+            %Value for Thresholding T_Low and T_High set by input
             
             %Hysteresis Thresholding
             T_Low = T_Low * max(max(BW));
@@ -113,6 +111,7 @@ classdef EdgeDetection
             end;
             
             %return 
+            T_res = T_res(1:xLength-1,1:yLength-1) + (gray.^1.5);
             outputImage = uint8(T_res.*255);
             
             %figure('Name','outputImage')
