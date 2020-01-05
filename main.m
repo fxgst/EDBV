@@ -4,9 +4,28 @@ addpath('Images');
 female = 1;
 male = 2;
 
-mainFunc(imread('Images/image_6.jpg'), female);
-%mainFunc(imread('Images/port_2.jpg'), male);
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% Specify whether male or female ports should be detected
+
+mode = male;
+
+%%%%% Specify on which image the ports should be detected
+
+%%% Good examples of computer case backs: image_[0,6].jpg
+%%% Good examples of male handheld ports: port_[1,4].jpg
+filename = 'port_1.jpg';
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+if mode == female
+	mainFunc(imread(strcat('Images/', filename)), female);
+else
+	mainFunc(imread(strcat('Images/', filename)), male);
+end
 
 
 function mainFunc(original, mode)
@@ -51,7 +70,7 @@ function mainFunc(original, mode)
 		%auxTemplate = GaussFilter.Filter(auxTemplate, 0);
 
 		%Edge Detection
-		hdmiTemplate = imresize(EdgeDetection.Filter(hdmiTemplate, 'sobel'), [80,35]);%[120,50]);
+		hdmiTemplate = imresize(EdgeDetection.Filter(hdmiTemplate, 'sobel'), [80,35]);
 		usbTemplate = imresize(EdgeDetection.Filter(usbTemplate, 'sobel'), [80,40]);
 		auxTemplate = imresize(EdgeDetection.Filter(auxTemplate, 'sobel'), [50,50]);
 		mouseTemplate = imresize(EdgeDetection.Filter(mouseTemplate, 'sobel'), [60,60]);
@@ -65,10 +84,10 @@ function mainFunc(original, mode)
 
 		Matches = []; % x; y; height; width; score; type
 		scales = [0.7, 0.8];
+		
 		% find matches
 		disp('hdmi');
 		Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.30, 70, scales);
-		
 		disp('mouse');
 		Matches = TemplateMatching.Match(Matches, image, mouseTemplate, mouse, 0.25, 70, scales);
 		disp('vga');
@@ -78,7 +97,6 @@ function mainFunc(original, mode)
 		disp('aux');
 		Matches = TemplateMatching.Match(Matches, image, auxTemplate, aux, 0.28, 70, scales);
 		
-
 
 		format shortg
 		disp(Matches);
@@ -97,6 +115,7 @@ function mainFunc(original, mode)
 		% display image
 		imshowpair(result, image, 'montage');
 		disp('DONE');
+		
 	else 
 		usb = 1;
 		hdmi = 2;
@@ -127,7 +146,7 @@ function mainFunc(original, mode)
 		Matches = [];
 		
 		%scales = flip(linspace(0.4, max((maxx/x),(maxy/y)),7)); % 7 sizes up to the size of scaled image 
-		scales = flip(linspace(0.2, 2, 20)); % 7 sizes up to the size of scaled image 
+		scales = flip(linspace(0.2, 2, 20)); % 20 sizes between 0.2 and 2 
 
 		disp('hdmi');
 		Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.3, 200, scales);
