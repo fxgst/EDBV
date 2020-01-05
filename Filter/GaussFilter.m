@@ -1,7 +1,4 @@
 classdef GaussFilter
-    properties
-        Property1 % not used
-    end
     
     methods(Static)
                
