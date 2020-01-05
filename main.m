@@ -51,7 +51,7 @@ function mainFunc(original, mode)
 		% apply filters to original for processing
 
 		%image = GaussFilter.Filter(image);
-		image = EdgeDetection.Filter(imageCut, 'sobel');
+		image = EdgeDetection.Filter(imageCut, 0.2);
 		%image = BinaryImage.Binary(image);
 
 		% load templates
@@ -70,11 +70,11 @@ function mainFunc(original, mode)
 		%auxTemplate = GaussFilter.Filter(auxTemplate, 0);
 
 		%Edge Detection
-		hdmiTemplate = imresize(EdgeDetection.Filter(hdmiTemplate, 'sobel'), [80,35]);
-		usbTemplate = imresize(EdgeDetection.Filter(usbTemplate, 'sobel'), [80,40]);
-		auxTemplate = imresize(EdgeDetection.Filter(auxTemplate, 'sobel'), [50,50]);
-		mouseTemplate = imresize(EdgeDetection.Filter(mouseTemplate, 'sobel'), [60,60]);
-		vgaTemplate = imresize(EdgeDetection.Filter(vgaTemplate, 'sobel'), [165,60]);
+		hdmiTemplate = imresize(EdgeDetection.Filter(hdmiTemplate, 3), [80,35]);
+		usbTemplate = imresize(EdgeDetection.Filter(usbTemplate, 3), [80,40]);
+		auxTemplate = imresize(EdgeDetection.Filter(auxTemplate, 3), [50,50]);
+		mouseTemplate = imresize(EdgeDetection.Filter(mouseTemplate, 3), [60,60]);
+		vgaTemplate = imresize(EdgeDetection.Filter(vgaTemplate, 3), [165,60]);
 
 		%Binary
 		%hdmiTemplate = BinaryImage.Binary(hdmiTemplate);
@@ -134,14 +134,14 @@ function mainFunc(original, mode)
 			original = imresize(original, [maxx, (y * (maxx/x))]);
 		end
 		
-		image = EdgeDetection.Filter(original, 'sobel');
+		image = EdgeDetection.Filter(original, 0.2);
 
 		% load templates
 		hdmiTemplate = imread('Images/male_hdmi_template.jpg');
 		usbTemplate = imread('Images/male_usb_template.jpg');
 		
-		hdmiTemplate = EdgeDetection.Filter(hdmiTemplate, 'sobel');
-		usbTemplate = EdgeDetection.Filter(usbTemplate, 'sobel');
+		hdmiTemplate = EdgeDetection.Filter(hdmiTemplate, 3);
+		usbTemplate = EdgeDetection.Filter(usbTemplate, 3);
 		
 		Matches = [];
 		

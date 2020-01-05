@@ -5,7 +5,7 @@ classdef EdgeDetection
     
     methods(Static)
         
-         function outputImage = Filter(image,filter)
+         function outputImage = Filter(image,sigma)
 
             matrixX = [-1 0 1;
                        -2 0 2;
@@ -15,14 +15,11 @@ classdef EdgeDetection
                         1 2 1];
             
             %Gaussfilter step 1
-            grayGauss = GaussFilter.Filter(image, 0.5);
+            grayGauss = GaussFilter.Filter(image, sigma);
             
             % to gray
             gray = rgb2gray(grayGauss);
-            asid = size(gray)
             
-            figure('Name','gray')
-            imshow(gray);
             xGray = gray;
             yGray = gray;
             
@@ -41,8 +38,8 @@ classdef EdgeDetection
             theta = theta*180/pi;
             
             inputSize = size(theta); 
-            xLength = inputSize(1)
-            yLength = inputSize(2)
+            xLength = inputSize(1);
+            yLength = inputSize(2);
                       
             %Adjustment for negative directions, making all directions positive
             for i=1:xLength
@@ -117,6 +114,9 @@ classdef EdgeDetection
             
             %return 
             outputImage = uint8(T_res.*255);
+            
+            %figure('Name','outputImage')
+            %imshow(outputImage);
 
          end 
         
@@ -139,8 +139,6 @@ classdef EdgeDetection
             calcMatrix(1:(xLength+2),1:(yLength+2)) = 0;
             calcMatrix(2:(xLength+1),2:(yLength+1)) = useInput;
             
-            figure('Name','calcMatrix')
-            imshow(calcMatrix);
 
             calcMatrixSize = size(calcMatrix);
             xCalcLength = calcMatrixSize(1);
@@ -159,9 +157,6 @@ classdef EdgeDetection
                     newCalcMatrix(row,colum) = newValue;
                 end
             end
-            
-            figure('Name','newCalcMatrix')
-            imshow(newCalcMatrix);
             
             result = newCalcMatrix;
 
