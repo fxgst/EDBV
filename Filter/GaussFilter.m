@@ -13,7 +13,6 @@ classdef GaussFilter
             if sigma > 0
                 gauss_kernel = fspecial('gaussian', [5 5], sigma);
                 outputImage = GaussFilter.evc_filter(image,gauss_kernel);
-                melin = 55555555555555555555555555555555555555555555555555555555555555555555555555555
             else
                 outputImage = image;
             end
