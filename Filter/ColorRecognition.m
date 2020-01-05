@@ -1,9 +1,6 @@
+% Author: Elias Datler 11775795
 classdef ColorRecognition
-	%COLORRECOGNITION Summary of this class goes here
-	%   Detailed explanation goes here
-	
-	properties
-	end
+	%COLORRECOGNITION Returns an image with filtered colors
 	
 	methods(Static)
 		function result = colors(original, color)
