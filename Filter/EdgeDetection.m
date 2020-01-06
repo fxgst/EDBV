@@ -15,9 +15,8 @@ classdef EdgeDetection
             grayGauss = GaussFilter.bilateralFilter(image, sigma, sigma, 3);
             
             % to gray
-            gray = rgb2gray(grayGauss);
-            
-            gray = gray;
+            %gray = rgb2gray(grayGauss);
+            gray = GrayScale.Gray(grayGauss);
             
             %Sobeloperator in both directions step 2
             imageX = EdgeDetection.evc_filter(gray, matrixX);
