@@ -1,7 +1,4 @@
 classdef EdgeDetection
-    properties
-        Property1 % not used        
-    end
     
     methods(Static)
         
@@ -68,7 +65,7 @@ classdef EdgeDetection
             end;
 
             
-            %unterdrücken von nicht maximas step 5
+            %unterdrï¿½cken von nicht maximas step 5
             BW = zeros (xLength, yLength);
             BW = double (BW);
             %Non-Maximum Supression
