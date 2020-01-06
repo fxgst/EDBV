@@ -4,7 +4,7 @@ classdef GaussFilter
                
         function outputImage = Filter(image, sigma)
             
-            if ~exist('sigma','var')
+            if ~exist('sigma','var') || sigma <= 0
                 sigma = 0.5;
             end
             if sigma > 0
@@ -85,7 +85,7 @@ classdef GaussFilter
 
         end
 
-        function [result] = betterGauss(input, sigmaS, sigmaI, sizeXY)
+        function [result] = bilateralFilter(input, sigmaS, sigmaI, sizeXY)
 
             useInput = im2double(input);
             
@@ -134,14 +134,14 @@ classdef GaussFilter
                             iqG = G(q(1),q(2));
                             iqB = B(q(1),q(2));
                             
-                            newValueRSum1 = newValueRSum1 + exp((abs(norm(p - q)))/(2*(sigmaS^2))) * exp((ipR - iqR)/(2*(sigmaI^2))) * iqR;
-                            newValueRSum2 = newValueRSum2 + exp((abs(norm(p - q)))/(2*(sigmaS^2))) * exp((ipR - iqR)/(2*(sigmaI^2)));
+                            newValueRSum1 = newValueRSum1 + exp(((abs(norm(p - q)))^2)/(2*(sigmaS^2))) * exp(((abs(ipR - iqR))^2)/(2*(sigmaI^2))) * iqR;
+                            newValueRSum2 = newValueRSum2 + exp(((abs(norm(p - q)))^2)/(2*(sigmaS^2))) * exp(((abs(ipR - iqR))^2)/(2*(sigmaI^2)));
 
-                            newValueGSum1 = newValueGSum1 + exp((abs(norm(p - q)))/(2*(sigmaS^2))) * exp((ipG - iqG)/(2*(sigmaI^2))) * iqG;
-                            newValueGSum2 = newValueGSum2 + exp((abs(norm(p - q)))/(2*(sigmaS^2))) * exp((ipG - iqG)/(2*(sigmaI^2)));
+                            newValueGSum1 = newValueGSum1 + exp(((abs(norm(p - q)))^2)/(2*(sigmaS^2))) * exp(((abs(ipG - iqG))^2)/(2*(sigmaI^2))) * iqG;
+                            newValueGSum2 = newValueGSum2 + exp(((abs(norm(p - q)))^2)/(2*(sigmaS^2))) * exp(((abs(ipG - iqG))^2)/(2*(sigmaI^2)));
 
-                            newValueBSum1 = newValueBSum1 + exp((abs(norm(p - q)))/(2*(sigmaS^2))) * exp((ipB - iqB)/(2*(sigmaI^2))) * iqB;
-                            newValueBSum2 = newValueBSum2 + exp((abs(norm(p - q)))/(2*(sigmaS^2))) * exp((ipB - iqB)/(2*(sigmaI^2)));
+                            newValueBSum1 = newValueBSum1 + exp(((abs(norm(p - q)))^2)/(2*(sigmaS^2))) * exp(((abs(ipB - iqB))^2)/(2*(sigmaI^2))) * iqB;
+                            newValueBSum2 = newValueBSum2 + exp(((abs(norm(p - q)))^2)/(2*(sigmaS^2))) * exp(((abs(ipB - iqB))^2)/(2*(sigmaI^2)));
                         end
                     end
                     R(row,colum) = (1/newValueRSum2) * newValueRSum1;

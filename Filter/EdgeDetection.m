@@ -15,7 +15,7 @@ classdef EdgeDetection
                         1 2 1];
             
             %Gaussfilter step 1
-            grayGauss = GaussFilter.betterGauss(image, sigma, sigma, 3);
+            grayGauss = GaussFilter.bilateralFilter(image, sigma, sigma, 3);
             
             % to gray
             gray = rgb2gray(grayGauss);

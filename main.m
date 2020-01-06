@@ -9,13 +9,13 @@ male = 2;
 
 %%%%% Specify whether male or female ports should be detected
 
-mode = female;
+mode = male;
 
 %%%%% Specify on which image the ports should be detected
 
 %%% Good examples of computer case backs: image_[0,6].jpg
 %%% Good examples of male handheld ports: port_[1,4].jpg
-filename = 'image_0.jpg';
+filename = 'port_1.jpg';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -162,10 +162,10 @@ function mainFunc(original, mode, templateSigma, imageSigma, imageT_Low, imageT_
 		%scales = flip(linspace(0.4, max((maxx/x),(maxy/y)),7)); % 7 sizes up to the size of scaled image 
 		scales = flip(linspace(0.2, 2, 20)); % 20 sizes between 0.2 and 2 
 
-        disp('usb');
-		Matches = TemplateMatching.Match(Matches, image, usbTemplate, usb, 0.4, 200, scales);
-		disp('hdmi');
-		Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.4, 200, scales);
+        disp('hdmi');
+		Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.45, 200, scales);
+		disp('usb');
+		Matches = TemplateMatching.Match(Matches, image, usbTemplate, usb, 0.45, 200, scales);
 		
 		format shortg
 		disp(Matches);
