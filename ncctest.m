@@ -1,1 +1,0 @@
-ncc2d.cc(rgb2gray(imread('Images\image_1.jpg')),rgb2gray(imread('Images\usb_template_1.jpg')))
