@@ -37,11 +37,6 @@ else
 	mainFunc(imread(strcat('Images/', filename)), male, templateSigma, imageSigma, imageSchwellenwert_Low, imageSchwellenwert_High, templateSchwellenwert_Low, templateSchwellenwert_High);
 end
 
-
-function dummyF()
-disp('dummy')
-end
-
 function mainFunc(original, mode, templateSigma, imageSigma, imageT_Low, imageT_High, templateT_Low, templateT_High)
 	disp('START');
 	

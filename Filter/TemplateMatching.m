@@ -14,7 +14,6 @@ classdef TemplateMatching
 				[width, height] = size(rTemplate);
 				
 				c = normxcorr2(rTemplate, image);
-				
 				bestMatches = maxk(c(:), considerTopMatches);
 				
 				for i = 1:size(bestMatches)
