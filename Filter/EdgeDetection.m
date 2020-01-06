@@ -1,8 +1,5 @@
 classdef EdgeDetection
-    properties
-        Property1 % not used        
-    end
-    
+
     methods(Static)
         
          function outputImage = Filter(image,sigma,T_Low,T_High)
@@ -69,7 +66,7 @@ classdef EdgeDetection
             end;
 
             
-            %unterdrücken von nicht maximas step 5
+            %unterdruecken von nicht maximas step 5
             BW = zeros (xLength, yLength);
             BW = double (BW);
             %Non-Maximum Supression

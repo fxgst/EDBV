@@ -1,13 +1,9 @@
+% Author: Elias Datler 11775795
 classdef TemplateMatching
-	%TEMPLATEMATCHING Summary of this class goes here
-	%   Detailed explanation goes here
-	
-	properties(Constant)
-		
-	end
+	%TEMPLATEMATCHING Matches a given template with an image, in multiple
+	%sizes
 	
 	methods(Static)
-		
 		
 		function [Matches] = Match(Matches, image, template, type, minScore, considerTopMatches, scales)
 			[imageWidth, imageHeight] = size(image);
@@ -17,7 +13,7 @@ classdef TemplateMatching
 				rTemplate = imresize(template, scales(s));
 				[width, height] = size(rTemplate);
 				
-				c = normxcorr2(rTemplate, image); % VERY slow
+				c = normxcorr2(rTemplate, image);
 				
 				bestMatches = maxk(c(:), considerTopMatches);
 				
@@ -83,6 +79,8 @@ classdef TemplateMatching
 				result = insertShape(result, 'rectangle', Matches(1:4, i)', 'LineWidth', 3, 'Color', color);
 			end
 		end
+		
+		
 		
 	end
 	

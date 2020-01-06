@@ -1,10 +1,5 @@
 classdef GeoTransformation
-    %GEOTRANSFORMATION Summary of this class goes here
-    %   Detailed explanation goes here
-    
-    properties
-        Property1
-    end
+    %GEOTRANSFORMATION Used for cropping of images
     
     methods(Static)
         

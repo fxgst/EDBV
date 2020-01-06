@@ -15,7 +15,7 @@ mode = female;
 
 %%% Good examples of computer case backs: image_[0,6].jpg
 %%% Good examples of male handheld ports: port_[1,4].jpg
-filename = 'image_0.jpg';
+filename = 'image_6.jpg';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 imageSigma = 1;
@@ -117,23 +117,22 @@ function mainFunc(original, mode, templateSigma, imageSigma, imageT_Low, imageT_
 		result = TemplateMatching.DrawRectangles(imageCut, Matches);
 
 		% color recognition
-	% 	i = ColorRecognition.colors(original, 'blue');
-	% 	imshow(i);
-
+		% i = ColorRecognition.colors(original, 'blue');
+		% imshow(i);
 
 		% initialize GUI
 		% GUI.init();
 
 		% display image
         figure,
-		%imshowpair(result, image, 'montage');
+		imshowpair(result, image, 'montage');
 		disp('DONE');
 		
 	else 
 		usb = 1;
 		hdmi = 2;
 		
-		[x,y,z] = size(original);
+		[x,y,~] = size(original);
 		
 		maxy = 800;
 		maxx = 800;
