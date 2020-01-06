@@ -1,23 +1,20 @@
+% Author: Elias Datler 11775795
 classdef GrayScale
-	%UNTITLED Summary of this class goes here
-	%   Detailed explanation goes here
+	%GRAYSCALE Converts an image to a grayscale image
 	
-	properties
-		Property1
-	end
-	
-	methods
-		function obj = untitled(inputArg1,inputArg2)
-			%UNTITLED Construct an instance of this class
-			%   Detailed explanation goes here
-			obj.Property1 = inputArg1 + inputArg2;
+	methods(Static)
+		function returnedImage = Gray(image)
+			i = image;
+			
+			% separate color channels
+			R = i(:, :, 1);
+			G = i(:, :, 2);
+			B = i(:, :, 3);
+			
+			% standard NTSC conversion formula
+			returnedImage = 0.2989*R + 0.5970*G + 0.1140*B;
 		end
 		
-		function outputArg = method1(obj,inputArg)
-			%METHOD1 Summary of this method goes here
-			%   Detailed explanation goes here
-			outputArg = obj.Property1 + inputArg;
-		end
 	end
 end
 
