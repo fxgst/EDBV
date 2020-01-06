@@ -1,6 +1,7 @@
 % Author: Elias Datler 11775795
 classdef ColorRecognition
-	%COLORRECOGNITION Returns an image with filtered colors
+	%COLORRECOGNITION Returns an image with filtered colors, unused in
+	%final implementation
 	
 	methods(Static)
 		function result = colors(original, color)

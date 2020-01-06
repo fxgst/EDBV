@@ -15,7 +15,7 @@ mode = female;
 
 %%% Good examples of computer case backs: image_[0,6].jpg
 %%% Good examples of male handheld ports: port_[1,4].jpg
-filename = 'image_6.jpg';
+filename = 'image_2.jpg';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 imageSigma = 1;
@@ -105,7 +105,7 @@ function mainFunc(original, mode, templateSigma, imageSigma, imageT_Low, imageT_
 		disp('aux');
 		Matches = TemplateMatching.Match(Matches, image, auxTemplate, aux, 0.25, 70, scales);
         disp('usb');
-		Matches = TemplateMatching.Match(Matches, image, usbTemplate, usb, 0.35, 70, scales);
+		Matches = TemplateMatching.Match(Matches, image, usbTemplate, usb, 0.25, 70, scales);
 		disp('hdmi');
 		Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.35, 70, scales);
 		

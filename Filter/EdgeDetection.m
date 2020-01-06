@@ -1,7 +1,7 @@
 classdef EdgeDetection
-
+   
     methods(Static)
-        
+		
          function outputImage = Filter(image,sigma,T_Low,T_High)
 
             matrixX = [-1 0 1;
@@ -15,7 +15,7 @@ classdef EdgeDetection
             grayGauss = GaussFilter.Filter(image, sigma);
             
             % to gray
-            gray = rgb2gray(grayGauss);
+            gray = GrayScale.Gray(grayGauss);
             
             xGray = gray;
             yGray = gray;
