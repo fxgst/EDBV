@@ -126,7 +126,7 @@ function mainFunc(original, mode, templateSigma, imageSigma, imageT_Low, imageT_
 
 		% display image
         figure,
-		imshowpair(result, image, 'montage');
+		%imshowpair(result, image, 'montage');
 		disp('DONE');
 		
 	else 
