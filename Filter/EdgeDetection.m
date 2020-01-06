@@ -1,7 +1,10 @@
 classdef EdgeDetection
-   
+    properties
+        Property1 % not used        
+    end
+    
     methods(Static)
-		
+        
          function outputImage = Filter(image,sigma,T_Low,T_High)
 
             matrixX = [-1 0 1;
@@ -12,17 +15,16 @@ classdef EdgeDetection
                         1 2 1];
             
             %Gaussfilter step 1
-            grayGauss = GaussFilter.Filter(image, sigma);
+            grayGauss = GaussFilter.betterGauss(image, sigma, sigma, 3);
             
             % to gray
-            gray = GrayScale.Gray(grayGauss);
+            gray = rgb2gray(grayGauss);
             
-            xGray = gray;
-            yGray = gray;
+            gray = gray;
             
             %Sobeloperator in both directions step 2
-            imageX = EdgeDetection.evc_filter(xGray, matrixX);
-            imageY = EdgeDetection.evc_filter(yGray, matrixY);
+            imageX = EdgeDetection.evc_filter(gray, matrixX);
+            imageY = EdgeDetection.evc_filter(gray, matrixY);
             
             %imageBoth = max(imageX, imageY); 
             
@@ -66,7 +68,7 @@ classdef EdgeDetection
             end;
 
             
-            %unterdruecken von nicht maximas step 5
+            %unterdrücken von nicht maximas step 5
             BW = zeros (xLength, yLength);
             BW = double (BW);
             %Non-Maximum Supression
@@ -108,7 +110,7 @@ classdef EdgeDetection
             end;
             
             %return 
-            T_res = T_res(1:xLength-1,1:yLength-1) + (gray.^1.5);
+            T_res = T_res(1:xLength-1,1:yLength-1) + (gray.^1.2);
             outputImage = uint8(T_res.*255);
             
             %figure('Name','outputImage')

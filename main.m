@@ -15,28 +15,26 @@ mode = female;
 
 %%% Good examples of computer case backs: image_[0,6].jpg
 %%% Good examples of male handheld ports: port_[1,4].jpg
-filename = 'image_2.jpg';
+filename = 'image_0.jpg';
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-imageSigma = 1;
-templateSigma = 1;
 
 if mode == female
-    templateSigma = 2;
-    imageSigma = 0.5;
-    templateT_Low = 0.075;
-    templateT_High = 0.175;
-    imageT_Low = 0.055;
-    imageT_High = 0.105;
-	mainFunc(imread(strcat('Images/', filename)), female, templateSigma, imageSigma, imageT_Low, imageT_High, templateT_Low, templateT_High);
+    templateSigma = 3;
+    imageSigma = 2;
+    templateSchwellenwert_Low = 0.055;
+    templateSchwellenwert_High = 0.125;
+    imageSchwellenwert_Low = 0.035;
+    imageSchwellenwert_High = 0.095;
+	mainFunc(imread(strcat('Images/', filename)), female, templateSigma, imageSigma, imageSchwellenwert_Low, imageSchwellenwert_High, templateSchwellenwert_Low, templateSchwellenwert_High);
 else
-    templateSigma = 1;
-    imageSigma = 0.5;
-    templateT_Low = 0.115;
-    templateT_High = 0.175;
-    imageT_Low = 0.055;
-    imageT_High = 0.155;
-	mainFunc(imread(strcat('Images/', filename)), male, templateSigma, imageSigma, imageT_Low, imageT_High, templateT_Low, templateT_High);
+    templateSigma = 3;
+    imageSigma = 2;
+    templateSchwellenwert_Low = 0.055;
+    templateSchwellenwert_High = 0.125;
+    imageSchwellenwert_Low = 0.035;
+    imageSchwellenwert_High = 0.095;
+	mainFunc(imread(strcat('Images/', filename)), male, templateSigma, imageSigma, imageSchwellenwert_Low, imageSchwellenwert_High, templateSchwellenwert_Low, templateSchwellenwert_High);
 end
 
 
@@ -67,7 +65,7 @@ function mainFunc(original, mode, templateSigma, imageSigma, imageT_Low, imageT_
 		%image = BinaryImage.Binary(image);
 
 		% load templates
-		hdmiTemplate = imread('Images/hdmi_template_3.jpg');
+		hdmiTemplate = imread('Images/hdmi_template_4.jpg');
 		vgaTemplate = imread('Images/vga_template_1.jpg');
 		usbTemplate = imread('Images/usb_template_2.jpg');
 		auxTemplate = imread('Images/aux_template_2.jpg');
@@ -99,15 +97,15 @@ function mainFunc(original, mode, templateSigma, imageSigma, imageT_Low, imageT_
 		
 		% find matches
         disp('mouse');
-		Matches = TemplateMatching.Match(Matches, image, mouseTemplate, mouse, 0.3, 70, scales);
+		Matches = TemplateMatching.Match(Matches, image, mouseTemplate, mouse, 0.30, 70, scales);
 		disp('vga');
-		Matches = TemplateMatching.Match(Matches, image, vgaTemplate, vga, 0.23, 70, scales);
+		Matches = TemplateMatching.Match(Matches, image, vgaTemplate, vga, 0.15, 70, scales);
 		disp('aux');
-		Matches = TemplateMatching.Match(Matches, image, auxTemplate, aux, 0.25, 70, scales);
+		Matches = TemplateMatching.Match(Matches, image, auxTemplate, aux, 0.28, 70, scales);
         disp('usb');
-		Matches = TemplateMatching.Match(Matches, image, usbTemplate, usb, 0.25, 70, scales);
+		Matches = TemplateMatching.Match(Matches, image, usbTemplate, usb, 0.37, 70, scales);
 		disp('hdmi');
-		Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.35, 70, scales);
+		Matches = TemplateMatching.Match(Matches, image, hdmiTemplate, hdmi, 0.37, 70, scales);
 		
 
 		format shortg
