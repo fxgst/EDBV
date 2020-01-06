@@ -9,8 +9,10 @@ For male ports, click 'Load Male Plug Image', and choose an image from the Image
 After the image appears in the gui, click 'Calculate'. If the button's line turnes blue, it is calculating. This may take a while. After the detection is done, the ports in the image should be highlighted.
 
 ## Female Ports
-For female ports, click 'Load Female Plug Image', and choose an image from the Images folder named `image[0-5].jpg` to see good examples. The other images can be chosen as well, but they might not deliver good results. After the image appeared in the gui, click calculate.
+For female ports, click 'Load Female Plug Image', and choose an image from the Images folder named `image[0-5].jpg` to see good examples. The other images can be chosen as well (`image[7-26].jpg`), but they might not deliver good results, as they don't comply with our requirements. After the image appeared in the gui, click 'Calculate'.
 Now a new window will open, where you have to draw a rectangle on the standardized part where the ports are. After this step, the window closes and the results will be shown in the gui.
+
+The meaning of the colors is explained below, and there you can also see a status of the program.
 
 ## Using own dataset
 If you want to use your own dataset, you have to consider the following tips to get useable results from the program:
