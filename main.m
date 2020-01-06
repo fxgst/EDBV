@@ -38,6 +38,10 @@ else
 end
 
 
+function dummyF()
+disp('dummy')
+end
+
 function mainFunc(original, mode, templateSigma, imageSigma, imageT_Low, imageT_High, templateT_Low, templateT_High)
 	disp('START');
 	
